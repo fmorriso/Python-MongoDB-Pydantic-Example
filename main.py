@@ -26,6 +26,10 @@ def get_mongodb_database(client: MongoClient, database_name: str):
     return client.get_database(name=database_name)
 
 
+def get_mongodb_collection(database, collection_name: str):
+    return database.get_collection(collection_name)
+
+
 def verify_mongodb_database():
     print('DEBUG: top of verify_mongodb_database')
     client: MongoClient = get_mongodb_client()
@@ -34,6 +38,11 @@ def verify_mongodb_database():
     print(f'{database_name=}')
     db = get_mongodb_database(client, database_name)
     print(f'{db=}')
+
+    collection_name: str = os.environ.get('mongodb_collection_name')
+
+    products_collection = get_mongodb_collection(db, collection_name)
+    print(f'{products_collection=}')
 
 
 if __name__ == '__main__':
