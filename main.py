@@ -22,13 +22,17 @@ def get_mongodb_client() -> MongoClient:
     return MongoClient(get_connection_string())
 
 
+def get_mongodb_database(client: MongoClient, database_name: str):
+    return client.get_database(name=database_name)
+
+
 def verify_mongodb_database():
     print('DEBUG: top of verify_mongodb_database')
     client: MongoClient = get_mongodb_client()
     print(f'{client=}')
     database_name: str = os.environ.get('mongodb_database_name')
     print(f'{database_name=}')
-    db = client.get_database(name=database_name)
+    db = get_mongodb_database(client, database_name)
     print(f'{db=}')
 
 
