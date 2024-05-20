@@ -1,6 +1,13 @@
 # python-pyODMongo-example
 
+Example of using PyODMongo to access MongoDB Atlas databasess and collections.
 
+## References
+* [PyODMongo](https://pyodmongo.dev/getting_started/#__tabbed_1_2)
+## Tools Used
+* Python 3.12.3
+* PyCharm 2024.1.1
+* VSCode 1.89.1
 
 ## Getting started
 
