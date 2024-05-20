@@ -26,6 +26,10 @@ def verify_mongodb_database():
     print('DEBUG: top of verify_mongodb_database')
     client: MongoClient = get_mongodb_client()
     print(f'{client=}')
+    database_name: str = os.environ.get('mongodb_database_name')
+    print(f'{database_name=}')
+    db = client.get_database(name=database_name)
+    print(f'{db=}')
 
 
 if __name__ == '__main__':
