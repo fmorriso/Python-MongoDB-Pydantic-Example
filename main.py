@@ -43,8 +43,9 @@ def query_single_product():
     print(f'{engine=}')
     query = eq(Product.id_visible, 3)
     print(f'{query=}')
-    doc: Product = engine.find_one(Model=Product,query=query)
+    doc: Product = engine.find_one(Model=Product, query=query)
     print(f'{doc=}')
+
 
 def verify_mongodb_database():
     print('DEBUG: top of verify_mongodb_database')
