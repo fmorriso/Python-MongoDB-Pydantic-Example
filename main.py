@@ -1,5 +1,7 @@
 import os, sys
 
+from loguru import logger
+
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
@@ -48,9 +50,9 @@ def query_single_product():
 
 
 def verify_mongodb_database():
-    print('DEBUG: top of verify_mongodb_database')
+    logger.info('top')
     client: MongoClient = get_mongodb_client()
-    print(f'{client=}')
+    logger.info(f'{client=}')
     database_name: str = os.environ.get('mongodb_database_name')
     print(f'{database_name=}')
     db = get_mongodb_database(client, database_name)
@@ -60,9 +62,17 @@ def verify_mongodb_database():
 
     products_collection = get_mongodb_collection(db, collection_name)
     print(f'{products_collection=}')
+    logger.info('leaving')
+
+
+def start_logging():
+    log_format: str = '{time} - {name} - {level} - {function} - {message}'
+    logger.remove()
+    logger.add('formatted_log.txt', format=log_format, rotation='10 MB')
 
 
 if __name__ == '__main__':
-    print(f'Python version {get_python_version()}')
+    start_logging()
+    logger.info(f'Python version {get_python_version()}')
     verify_mongodb_database()
     query_single_product()
