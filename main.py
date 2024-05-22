@@ -70,7 +70,7 @@ def verify_mongodb_database():
 def start_logging():
     log_format: str = '{time} - {name} - {level} - {function} - {message}'
     logger.remove()
-    logger.add('formatted_log.txt', format=log_format, rotation='10 MB')
+    logger.add('formatted_log.txt', format=log_format, rotation='10 MB', retention='5 days')
 
 
 if __name__ == '__main__':
