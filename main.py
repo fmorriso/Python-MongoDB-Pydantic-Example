@@ -39,14 +39,16 @@ def get_mongodb_collection(database, collection_name: str):
 
 
 def query_single_product():
+    logger.info('top')
     uri: str = get_mongodb_atlas_uri()
     database_name: str = os.environ.get('mongodb_database_name')
     engine = DbEngine(mongo_uri=uri, db_name=database_name)
-    print(f'{engine=}')
+    logger.info(f'{engine=}')
     query = eq(Product.id_visible, 3)
-    print(f'{query=}')
+    logger.info(f'{query=}')
     doc: Product = engine.find_one(Model=Product, query=query)
-    print(f'{doc=}')
+    logger.info(f'{doc=}')
+    logger.info('leaving')
 
 
 def verify_mongodb_database():
