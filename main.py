@@ -1,11 +1,10 @@
-import os, sys
-
-from loguru import logger
+import os
+import sys
 
 from dotenv import load_dotenv
+from loguru import logger
 from pymongo import MongoClient
-
-from pyodmongo import DbEngine, DbModel
+from pyodmongo import DbEngine
 from pyodmongo.queries import eq
 
 from store_models import Product
