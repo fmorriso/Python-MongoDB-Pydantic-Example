@@ -1,5 +1,6 @@
-from pyodmongo import DbEngine, DbModel
 from typing import ClassVar
+
+from pyodmongo import DbModel
 
 
 class Product(DbModel):
