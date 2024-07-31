@@ -61,14 +61,14 @@ def verify_mongodb_database():
     client: MongoClient = get_mongodb_client()
     logger.info(f'{client=}')
     database_name: str = os.environ.get('mongodb_database_name')
-    print(f'{database_name=}')
+    logger.info(f'{database_name=}')
     db = get_mongodb_database(client, database_name)
-    print(f'{db=}')
+    logger.info(f'{db=}')
 
     collection_name: str = os.environ.get('mongodb_collection_name')
 
     products_collection = get_mongodb_collection(db, collection_name)
-    print(f'{products_collection=}')
+    logger.info(f'{products_collection=}')
     logger.info('leaving')
 
 
@@ -81,11 +81,11 @@ def start_logging():
 if __name__ == '__main__':
     start_logging()
 
-    msg = f'Python version {get_python_version()}'
+    msg = f'Python version: {get_python_version()}'
     print(msg)
     logger.info(msg)
 
-    msg = f'PyMongo version {pymongo.version}'
+    msg = f'PyMongo version: {pymongo.version}'
     print(msg)
     logger.info(msg)
 

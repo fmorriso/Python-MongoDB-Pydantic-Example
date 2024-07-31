@@ -1,6 +1,6 @@
 # python-pyODMongo-example
 
-Example of using PyODMongo to access MongoDB Atlas databasess and collections.
+Example of using PyODMongo to access MongoDB Atlas databases and collections.
 
 ## References
 * [PyODMongo](https://pyodmongo.dev/getting_started/#__tabbed_1_2)
@@ -18,9 +18,10 @@ Example of using PyODMongo to access MongoDB Atlas databasess and collections.
 
 ## Change History
 
-| Date       | Description                                                                                                         |
-|:-----------|:--------------------------------------------------------------------------------------------------------------------|
-| 2024-07-29 | Initial creation |
+| Date       | Description                                               |
+|:-----------|:----------------------------------------------------------|
+| 2024-05-20 | Initial creation                                          |
+| 2024-07-30 | verify execution against latest version of software tools |
 
 ## Getting started
 
