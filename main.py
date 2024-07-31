@@ -48,7 +48,11 @@ def query_single_product():
     query = eq(Product.id_visible, 3)
     logger.info(f'{query=}')
     doc: Product = engine.find_one(Model=Product, query=query)
-    logger.info(f'{doc=}')
+
+    msg = f'{doc=}'
+    print(msg)
+    logger.info(msg)
+
     logger.info('leaving')
 
 

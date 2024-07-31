@@ -5,9 +5,22 @@ Example of using PyODMongo to access MongoDB Atlas databasess and collections.
 ## References
 * [PyODMongo](https://pyodmongo.dev/getting_started/#__tabbed_1_2)
 ## Tools Used
-* Python 3.12.3
-* PyCharm 2024.1.1
-* VSCode 1.89.1
+
+| Tool      |  Version |
+|:----------|---------:|
+| Python    |   3.12.4 |
+| VSCode    |   1.91.1 |
+| PyCharm   | 2024.1.1 |
+| PyODMongo |    1.2.2 |
+| Pydantic  |    2.8.2 |
+| Pymongo   |    4.8.0 |
+| Motor     |    3.5.1 |
+
+## Change History
+
+| Date       | Description                                                                                                         |
+|:-----------|:--------------------------------------------------------------------------------------------------------------------|
+| 2024-07-29 | Initial creation |
 
 ## Getting started
 
