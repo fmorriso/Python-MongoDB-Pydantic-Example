@@ -1,6 +1,8 @@
 import os
 import sys
 
+import pymongo
+import pyodmongo.version
 from dotenv import load_dotenv
 from loguru import logger
 from pymongo import MongoClient
@@ -74,6 +76,18 @@ def start_logging():
 
 if __name__ == '__main__':
     start_logging()
-    logger.info(f'Python version {get_python_version()}')
+
+    msg = f'Python version {get_python_version()}'
+    print(msg)
+    logger.info(msg)
+
+    msg = f'PyMongo version {pymongo.version}'
+    print(msg)
+    logger.info(msg)
+
+    msg = f'PyODmongo version {pyodmongo.version.VERSION}'
+    print(msg)
+    logger.info(msg)
+
     verify_mongodb_database()
     query_single_product()
