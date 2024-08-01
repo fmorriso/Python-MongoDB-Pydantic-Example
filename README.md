@@ -2,6 +2,10 @@
 
 Example of using PyODMongo to access MongoDB Atlas databases and collections.
 
+## Developer notes
+* Warning: as of August 1, 2024, dependency package Cryptography issues a warning message if you install a version greater than or equal to 43.
+See the requirements.txt file for more information.
+
 ## References
 * [PyODMongo](https://pyodmongo.dev/getting_started/#__tabbed_1_2)
 ## Tools Used
