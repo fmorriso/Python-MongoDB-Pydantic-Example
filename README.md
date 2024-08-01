@@ -26,6 +26,7 @@ See the requirements.txt file for more information.
 |:-----------|:----------------------------------------------------------|
 | 2024-05-20 | Initial creation                                          |
 | 2024-07-30 | verify execution against latest version of software tools |
+| 2024-08-01 | add requirements.txt file and warning about cryptography package level restriction |
 
 ## Getting started
 
