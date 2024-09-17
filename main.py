@@ -19,9 +19,9 @@ def get_python_version() -> str:
 def get_mongodb_atlas_uri() -> str:
     load_dotenv()
 
-    template: str = os.environ.get('mongodb_connection_template')
-    uid: str = os.environ.get('mongodb_uid')
-    pwd: str = os.environ.get('mongodb_pwd')
+    template: str | None  = os.environ.get('mongodb_connection_template')
+    uid: str | None  = os.environ.get('mongodb_uid')
+    pwd: str | None = os.environ.get('mongodb_pwd')
 
     return f'mongodb+srv://{uid}:{pwd}@{template}'
 
@@ -42,9 +42,10 @@ def get_mongodb_collection(database, collection_name: str):
 def query_single_product():
     logger.info('top')
     uri: str = get_mongodb_atlas_uri()
-    database_name: str = os.environ.get('mongodb_database_name')
+    database_name: str | None = os.environ.get('mongodb_database_name')
     engine = DbEngine(mongo_uri=uri, db_name=database_name)
     logger.info(f'{engine=}')
+   
     query = eq(Product.id_visible, 3)
     logger.info(f'{query=}')
     doc: Product = engine.find_one(Model=Product, query=query)
