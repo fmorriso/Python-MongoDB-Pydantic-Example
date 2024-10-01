@@ -78,8 +78,7 @@ def start_logging():
     logger.remove()
     logger.add('formatted_log.txt', format=log_format, rotation='10 MB', retention='5 days')
 
-
-if __name__ == '__main__':
+def main():
     start_logging()
 
     msg = f'Python version: {get_python_version()}'
@@ -96,3 +95,7 @@ if __name__ == '__main__':
 
     verify_mongodb_database()
     query_single_product()
+
+
+if __name__ == '__main__':
+    main()

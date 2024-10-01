@@ -12,13 +12,13 @@ See the requirements.txt file for more information.
 
 | Tool      |  Version |
 |:----------|---------:|
-| Python    |   3.12.6 |
+| Pyton     |   3.12.6 |
 | VSCode    |   1.93.0 |
 | PyCharm   | 2024.2.1 |
 | PyODMongo |    1.2.2 |
-| Pydantic  |    2.9.1 |
-| Pymongo   |    4.8.0 |
-| Motor     |    3.5.1 |
+| Pydantic  |    2.9.2 |
+| Pymongo   |   4.10.0 |
+| Motor     |    3.6.0 |
 
 ## Change History
 
