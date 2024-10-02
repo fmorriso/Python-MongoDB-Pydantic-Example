@@ -27,7 +27,8 @@ See the requirements.txt file for more information.
 | 2024-05-20 | Initial creation                                                                   |
 | 2024-07-30 | verify execution against latest version of software tools                          |
 | 2024-08-01 | add requirements.txt file and warning about cryptography package level restriction |
-| 2024-09-17 | Verify program works with python 3.12.6 and other new levels of related packages  |
+| 2024-09-17 | Verify program works with python 3.12.6 and other new levels of related packages   |
+| 2024-10-01 | Verify program works with python 3.12.7                                            |
 
 ## Getting started
 
