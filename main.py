@@ -1,14 +1,15 @@
 import os
 import sys
-
+#
 import pymongo
 import pyodmongo.version
-from dotenv import load_dotenv
+#
 from loguru import logger
 from pymongo import MongoClient
 from pyodmongo import DbEngine
 from pyodmongo.queries import eq
-
+#
+from program_settings import ProgramSettings
 from store_models import Product
 
 
@@ -17,11 +18,11 @@ def get_python_version() -> str:
 
 
 def get_mongodb_atlas_uri() -> str:
-    load_dotenv()
 
-    template: str | None  = os.environ.get('mongodb_connection_template')
-    uid: str | None  = os.environ.get('mongodb_uid')
-    pwd: str | None = os.environ.get('mongodb_pwd')
+
+    template: str | None  = ProgramSettings.get_setting('MONGODB_CONNECTION_TEMPLATE')
+    uid: str | None  = ProgramSettings.get_setting('MONGODB_UID')
+    pwd: str | None = ProgramSettings.get_setting('mongodb_pwd')
 
     return f'mongodb+srv://{uid}:{pwd}@{template}'
 
@@ -42,7 +43,7 @@ def get_mongodb_collection(database, collection_name: str):
 def query_single_product():
     logger.info('top')
     uri: str = get_mongodb_atlas_uri()
-    database_name: str | None = os.environ.get('mongodb_database_name')
+    database_name: str | None = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     engine = DbEngine(mongo_uri=uri, db_name=database_name)
     logger.info(f'{engine=}')
    
@@ -61,12 +62,12 @@ def verify_mongodb_database():
     logger.info('top')
     client: MongoClient = get_mongodb_client()
     logger.info(f'{client=}')
-    database_name: str = os.environ.get('mongodb_database_name')
+    database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     logger.info(f'{database_name=}')
     db = get_mongodb_database(client, database_name)
     logger.info(f'{db=}')
 
-    collection_name: str = os.environ.get('mongodb_collection_name')
+    collection_name: str = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
 
     products_collection = get_mongodb_collection(db, collection_name)
     logger.info(f'{products_collection=}')
