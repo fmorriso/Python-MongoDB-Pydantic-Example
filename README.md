@@ -12,13 +12,13 @@ See the requirements.txt file for more information.
 
 | Tool      |  Version |
 |:----------|---------:|
-| Pyton     |   3.12.7 |
-| VSCode    |   1.94.0 |
-| PyCharm   | 2024.2.1 |
-| PyODMongo |    1.3.0 |
-| Pydantic  |    2.9.2 |
-| Pymongo   |   4.10.0 |
-| Motor     |    3.6.0 |
+| Python    |   3.13.1 |
+| VSCode    |   1.96.2 |
+| PyCharm   | 2024.3.1 |
+| PyODMongo |    1.4.6 |
+| Pydantic  |   2.10.5 |
+| Pymongo   |   4.10.1 |
+| Motor     |    3.6.1 |
 
 ## Change History
 
@@ -29,6 +29,7 @@ See the requirements.txt file for more information.
 | 2024-08-01 | add requirements.txt file and warning about cryptography package level restriction |
 | 2024-09-17 | Verify program works with python 3.12.6 and other new levels of related packages   |
 | 2024-10-01 | Verify program works with python 3.12.7                                            |
+| 2025-01-16 | Verify program works with python 3.13.1 and latest package releases                |
 
 ## Getting started
 

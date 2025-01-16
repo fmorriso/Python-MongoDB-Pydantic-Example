@@ -28,8 +28,10 @@ def get_mongodb_atlas_uri() -> str:
 
 
 def get_mongodb_client() -> MongoClient:
-    # print(f'{get_connection_string()=}')
-    return MongoClient(get_mongodb_atlas_uri())
+    uri: str = get_mongodb_atlas_uri()
+    msg = f'{uri=}'
+    logger.info(msg)
+    return MongoClient(uri)
 
 
 def get_mongodb_database(client: MongoClient, database_name: str):
