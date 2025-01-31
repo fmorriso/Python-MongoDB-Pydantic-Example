@@ -10,15 +10,15 @@ See the requirements.txt file for more information.
 * [PyODMongo](https://pyodmongo.dev/getting_started/#__tabbed_1_2)
 ## Tools Used
 
-| Tool      |  Version |
-|:----------|---------:|
-| Python    |   3.13.1 |
-| VSCode    |   1.96.2 |
-| PyCharm   | 2024.3.1 |
-| PyODMongo |    1.4.6 |
-| Pydantic  |   2.10.5 |
-| Pymongo   |   4.10.1 |
-| Motor     |    3.6.1 |
+| Tool      |    Version |
+|:----------|-----------:|
+| Python    |     3.13.1 |
+| VSCode    |     1.96.4 |
+| PyCharm   | 2024.3.2.2 |
+| PyODMongo |      1.4.6 |
+| Pydantic  |     2.10.6 |
+| Pymongo   |       4.11 |
+| Motor     |      3.7.0 |
 
 ## Change History
 
@@ -30,6 +30,7 @@ See the requirements.txt file for more information.
 | 2024-09-17 | Verify program works with python 3.12.6 and other new levels of related packages   |
 | 2024-10-01 | Verify program works with python 3.12.7                                            |
 | 2025-01-16 | Verify program works with python 3.13.1 and latest package releases                |
+| 2025-01-30 | Upgrade packages                                                                   |
 
 ## Getting started
 
