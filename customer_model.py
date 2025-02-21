@@ -4,12 +4,13 @@ from typing import List, Optional, ClassVar, Dict
 from bson import ObjectId
 from pydantic import BaseModel, EmailStr, Field
 
+from mongodb_base_model import MongoDbBaseModel
 from tier_details import TierDetails
 
 
-class Customer(BaseModel):
+class Customer(MongoDbBaseModel):
 
-    id: ObjectId = Field(default_factory = ObjectId, alias = "_id")
+    #NOTE: _id is defined in MongoDbBaseModel
 
     username: str
     name: str
@@ -22,6 +23,3 @@ class Customer(BaseModel):
     # database: sample_analytics
     _collection: ClassVar = 'customers'
 
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
