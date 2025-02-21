@@ -149,6 +149,33 @@ def verify_can_create_new_customer():
     insert_result = collection.insert_one(new_record)
     logger.info(f'{insert_result=}')
 
+
+def verify_can_query_by_id():
+    """
+    document = collection.find_one({'_id': ObjectId(_id_value)})
+    :return:
+    ObjectId('67b90df05a2ffff6369c798c'
+    """
+    client: MongoClient = get_mongodb_client()
+    logger.info(f'{client=}')
+    database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
+    logger.info(f'{database_name=}')
+    db = get_mongodb_database(client, database_name)
+    logger.info(f'{db=}')
+
+    collection_name: str = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
+    logger.info(f'{collection_name=}')
+    collection = db[collection_name]
+
+    unique_id = '67b90df05a2ffff6369c798c'
+    msg = f'{unique_id=}'
+    logger.info(msg)
+
+    example_document = collection.find_one({'_id': ObjectId(unique_id)})
+    msg = f'{example_document=}'
+    logger.info(msg)
+
+
 def main():
     start_logging()
 
@@ -162,7 +189,9 @@ def main():
 
     verify_customer_model()
     
-    verify_can_create_new_customer()
+    # verify_can_create_new_customer()
+
+    verify_can_query_by_id()
 
 
 if __name__ == '__main__':

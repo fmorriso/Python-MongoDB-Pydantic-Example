@@ -8,8 +8,7 @@ from tier_details import TierDetails
 
 
 class Customer(BaseModel):
-    #_id: Optional[ObjectId] = None
-    # _id: ObjectId = Field(alias='_id')
+
     id: ObjectId = Field(default_factory = ObjectId, alias = "_id")
 
     username: str
