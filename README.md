@@ -7,7 +7,8 @@ Example of using PyODMongo to access MongoDB Atlas databases and collections.
 See the requirements.txt file for more information.
 
 ## References
-* [PyODMongo](https://pyodmongo.dev/getting_started/#__tabbed_1_2)
+* [Pydantic Fields](https://docs.pydantic.dev/2.10/usage/fields)
+
 ## Tools Used
 
 | Tool      |  Version |
@@ -15,7 +16,6 @@ See the requirements.txt file for more information.
 | Python    |   3.13.2 |
 | VSCode    |   1.97.2 |
 | PyCharm   | 2024.3.3 |
-| PyODMongo |    1.5.1 |
 | Pydantic  |   2.10.6 |
 | Pymongo   |   4.11.1 |
 | Motor     |    3.7.0 |
@@ -32,6 +32,7 @@ See the requirements.txt file for more information.
 | 2025-01-16 | Verify program works with python 3.13.1 and latest package releases                |
 | 2025-01-30 | Upgrade packages                                                                   |
 | 2025-02-18 | Upgrade to python 3.13.2 and latest packages                                       |
+| 2025-02-21 | Stop using PyODMongo and use Pydantic instead                                      | 
 
 ## Getting started
 
