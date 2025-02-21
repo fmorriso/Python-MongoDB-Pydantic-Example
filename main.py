@@ -111,6 +111,44 @@ def verify_customer_model():
     logger.info(msg)
 
 
+def verify_can_create_new_customer():
+    client: MongoClient = get_mongodb_client()
+    logger.info(f'{client=}')
+    database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
+    logger.info(f'{database_name=}')
+    db = get_mongodb_database(client, database_name)
+    logger.info(f'{db=}')
+
+    collection_name: str = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
+    logger.info(f'{collection_name=}')
+    collection = db[collection_name]
+
+    example_document = collection.find_one()
+    msg = f'{example_document=}'
+    logger.info(msg)
+
+    original_customer = Customer(**example_document)
+
+    copied_customer = original_customer.model_copy(deep = True, update = {"_id": ObjectId()})
+    # change some fields to make a new record
+    copied_customer.username = 'frederickmorrison'
+    copied_customer.email = 'frederick.morrison@outlook.com'
+    copied_customer.name = 'Frederick Morrison'
+    copied_customer.address = '2132 Seaglass Street\nColorado Springs, CO 80921-4030'
+    msg = f'{copied_customer=}'
+    logger.info(msg)
+
+    # save to MongoDB collection
+    # convert to dictionary
+    new_record = copied_customer.model_dump(by_alias=True)
+    new_record.pop("_id", None) # prevent DuplicateKeyError
+    msg = f'{new_record=}'
+    logger.info(msg)
+
+    # now ask MongoDB to insert into the collection as a new record
+    insert_result = collection.insert_one(new_record)
+    logger.info(f'{insert_result=}')
+
 def main():
     start_logging()
 
@@ -124,8 +162,7 @@ def main():
 
     verify_customer_model()
     
-    #verify_mongodb_database()
-    #query_single_product()
+    verify_can_create_new_customer()
 
 
 if __name__ == '__main__':
