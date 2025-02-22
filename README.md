@@ -33,6 +33,7 @@ See the requirements.txt file for more information.
 | 2025-01-30 | Upgrade packages                                                                   |
 | 2025-02-18 | Upgrade to python 3.13.2 and latest packages                                       |
 | 2025-02-21 | Stop using PyODMongo and use Pydantic instead                                      | 
+| 2025-02-22 | Dummy change to force GitHub Desktop to see remote repo
 
 ## Getting started
 
