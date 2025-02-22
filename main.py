@@ -2,21 +2,15 @@ import sys
 
 #
 import pymongo
-from pydantic import EmailStr
-from pymongo import MongoClient
-from pymongo.synchronous.database import Database
 #
 from bson import ObjectId
 #
 from loguru import logger
-
-#from pyodmongo import DbEngine
-#from pyodmongo.queries import eq
+from pymongo import MongoClient
+from pymongo.synchronous.database import Database
 
 from customer_model import Customer
-#
 from program_settings import ProgramSettings
-from store_models import Product
 
 
 def get_python_version() -> str:
@@ -64,8 +58,8 @@ def query_single_product():
 
     doc = collection.find_one()
 
-    #query: dict = {'_id': ObjectId(doc['_id'])}
-    #doc = collection.find_one(Model = Product, query = query)
+    # query: dict = {'_id': ObjectId(doc['_id'])}
+    # doc = collection.find_one(Model = Product, query = query)
 
     msg = f'{doc=}'
     print(msg)
@@ -196,9 +190,8 @@ def main():
 
     # verify_can_create_new_customer()
 
-    verify_can_query_by_unique_id('67ba172377e77ea34bc1c118') # Elmer Fudd
-    verify_can_query_by_unique_id('67ba1a6ede6fd6a19f1bb175') # Daffy Duck
-
+    verify_can_query_by_unique_id('67ba172377e77ea34bc1c118')  # Elmer Fudd
+    verify_can_query_by_unique_id('67ba1a6ede6fd6a19f1bb175')  # Daffy Duck
 
 
 if __name__ == '__main__':
