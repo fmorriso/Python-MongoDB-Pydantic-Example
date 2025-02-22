@@ -1,4 +1,3 @@
-import io
 import sys
 
 #
@@ -28,7 +27,7 @@ def get_connection_string() -> str:
     pwd: str = ProgramSettings.get_setting('MONGODB_PWD')
 
     conn_string = f'mongodb+srv://{uid}:{pwd}@{template}'
-    print(f'{conn_string=}')
+    logger.debug(f'{conn_string=}')
     return conn_string
 
 
@@ -49,7 +48,7 @@ def get_mongodb_collection(database, collection_name: str):
 
 def query_single_product():
     print('Query single product - TOP')
-    logger.info('top')
+    logger.debug('top')
 
     database_name = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     database = get_mongodb_database(database_name)
@@ -66,11 +65,11 @@ def query_single_product():
     print(msg)
     logger.info(msg)
 
-    logger.info('leaving')
+    logger.debug('leaving')
 
 
 def verify_mongodb_database():
-    logger.info('top')
+    logger.debug('top')
     client: MongoClient = get_mongodb_client()
     logger.info(f'{client=}')
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
@@ -82,19 +81,21 @@ def verify_mongodb_database():
 
     products_collection = get_mongodb_collection(db, collection_name)
     logger.info(f'{products_collection=}')
-    logger.info('leaving')
+    logger.debug('leaving')
 
 
 def start_logging():
     log_format: str = '{time} - {name} - {level} - {function} - {message}'
     logger.remove()
     logger.add('formatted_log.txt', format = log_format, rotation = '10 MB', retention = '5 days')
+    # Add a handler that logs only DEBUG messages to stdout
+    logger.add(sys.stdout, level = "DEBUG", filter = lambda record: record["level"].name == "DEBUG")
 
 
 def verify_customer_model():
     """Verify that the Customer model works for retrieval from the customers collection within the sample_analytics
     collection."""
-    logger.info('top')
+    logger.debug('top')
     client: MongoClient = get_mongodb_client()
     logger.info(f'{client=}')
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
@@ -113,6 +114,8 @@ def verify_customer_model():
     validated_customer = Customer(**example_document)
     msg = f'{validated_customer=}'
     logger.info(msg)
+
+    logger.debug('leaving')
 
 
 def verify_can_create_new_customer():

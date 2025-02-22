@@ -11,14 +11,15 @@ See the requirements.txt file for more information.
 
 ## Tools Used
 
-| Tool      |  Version |
-|:----------|---------:|
-| Python    |   3.13.2 |
-| VSCode    |   1.97.2 |
-| PyCharm   | 2024.3.3 |
-| Pydantic  |   2.10.6 |
-| Pymongo   |   4.11.1 |
-| Motor     |    3.7.0 |
+| Tool     |  Version |
+|:---------|---------:|
+| Python   |   3.13.2 |
+| VSCode   |   1.97.2 |
+| PyCharm  | 2024.3.3 |
+| Pydantic |   2.10.6 |
+| Pymongo  |   4.11.1 |
+| Motor    |    3.7.0 |
+| Loguru   |    0.7.3 |
 
 ## Change History
 
