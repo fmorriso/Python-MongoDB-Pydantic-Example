@@ -1,16 +1,16 @@
-import os
 import sys
-from datetime import datetime
 
 #
 import pymongo
-import pyodmongo.version
+from pymongo import MongoClient
+from pymongo.synchronous.database import Database
+#
 from bson import ObjectId
 #
 from loguru import logger
-from pymongo import MongoClient
-from pyodmongo import DbEngine
-from pyodmongo.queries import eq
+
+#from pyodmongo import DbEngine
+#from pyodmongo.queries import eq
 
 from customer_model import Customer
 #
@@ -22,25 +22,29 @@ def get_python_version() -> str:
     return f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'
 
 
-def get_mongodb_atlas_uri() -> str:
-    template: str | None  = ProgramSettings.get_setting('MONGODB_CONNECTION_TEMPLATE')
-    uid: str | None  = ProgramSettings.get_setting('MONGODB_UID')
-    pwd: str | None = ProgramSettings.get_setting('mongodb_pwd')
-    uri: str = f'mongodb+srv://{uid}:{pwd}@{template}'
-    msg: str = f'{uri=}'
-    logger.info(msg)
-    return uri
+def get_connection_string() -> str:
+    """
+    Get a connection string for MongoDB using the key/values stored in the .env file.
+    :return: a string containing the connection string.
+    """
+    template: str = ProgramSettings.get_setting('MONGODB_CONNECTION_TEMPLATE')
+    uid: str = ProgramSettings.get_setting('MONGODB_UID')
+    pwd: str = ProgramSettings.get_setting('MONGODB_PWD')
+
+    conn_string = f'mongodb+srv://{uid}:{pwd}@{template}'
+    print(f'{conn_string=}')
+    return conn_string
 
 
 def get_mongodb_client() -> MongoClient:
-    uri: str = get_mongodb_atlas_uri()
-    msg = f'{uri=}'
-    logger.info(msg)
-    return MongoClient(uri)
+    """get a client connection to my personal MongoDB Atlas cluster using my personal userid and password"""
+    connection_string: str = get_connection_string()
+    connection: MongoClient = MongoClient(connection_string)
+    return connection
 
 
-def get_mongodb_database(client: MongoClient, database_name: str):
-    return client.get_database(name=database_name)
+def get_mongodb_database(client: MongoClient, database_name: str) -> Database:
+    return client.get_database(name = database_name)
 
 
 def get_mongodb_collection(database, collection_name: str):
@@ -48,15 +52,19 @@ def get_mongodb_collection(database, collection_name: str):
 
 
 def query_single_product():
+    print('Query single product - TOP')
     logger.info('top')
-    uri: str = get_mongodb_atlas_uri()
-    database_name: str | None = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
-    engine = DbEngine(mongo_uri=uri, db_name=database_name)
-    logger.info(f'{engine=}')
-   
-    query = eq(Product.id_visible, 3)
-    logger.info(f'{query=}')
-    doc: Product = engine.find_one(Model=Product, query=query)
+
+    database_name = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
+    database = get_mongodb_database(database_name)
+
+    collection_name = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
+    collection = get_mongodb_collection(database, collection_name)
+
+    doc = collection.find_one()
+
+    #query: dict = {'_id': ObjectId(doc['_id'])}
+    #doc = collection.find_one(Model = Product, query = query)
 
     msg = f'{doc=}'
     print(msg)
@@ -84,7 +92,7 @@ def verify_mongodb_database():
 def start_logging():
     log_format: str = '{time} - {name} - {level} - {function} - {message}'
     logger.remove()
-    logger.add('formatted_log.txt', format=log_format, rotation='10 MB', retention='5 days')
+    logger.add('formatted_log.txt', format = log_format, rotation = '10 MB', retention = '5 days')
 
 
 def verify_customer_model():
@@ -140,8 +148,8 @@ def verify_can_create_new_customer():
 
     # save to MongoDB collection
     # convert to dictionary
-    new_record = copied_customer.model_dump(by_alias=True)
-    new_record.pop("_id", None) # prevent DuplicateKeyError
+    new_record = copied_customer.model_dump(by_alias = True)
+    new_record.pop("_id", None)  # prevent DuplicateKeyError
     msg = f'{new_record=}'
     logger.info(msg)
 
@@ -154,8 +162,10 @@ def verify_can_query_by_unique_id():
     """
     Verify a single record can be fetched by unique id
     """
+    print('verify_can_query_by_unique_id - TOP')
     client: MongoClient = get_mongodb_client()
     logger.info(f'{client=}')
+
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     logger.info(f'{database_name=}')
     db = get_mongodb_database(client, database_name)
@@ -173,6 +183,8 @@ def verify_can_query_by_unique_id():
     msg = f'{example_document=}'
     logger.info(msg)
 
+    print('verify_can_query_by_unique_id - BOTTOM')
+
 
 def main():
     start_logging()
@@ -185,8 +197,8 @@ def main():
     print(msg)
     logger.info(msg)
 
-    verify_customer_model()
-    
+    # verify_customer_model()
+
     # verify_can_create_new_customer()
 
     verify_can_query_by_unique_id()

@@ -33,8 +33,17 @@ See the requirements.txt file for more information.
 | 2025-01-30 | Upgrade packages                                                                   |
 | 2025-02-18 | Upgrade to python 3.13.2 and latest packages                                       |
 | 2025-02-21 | Stop using PyODMongo and use Pydantic instead                                      | 
-| 2025-02-22 | rename remote repo and swtich from GitLab to GitHub                                |
+| 2025-02-22 | rename remote repo and switch from GitLab to GitHub                                |
 
 ## Developer Notes
+* Following information is expected to be available and accurate in a file named .env with values different than the ones shown:
+```text
+MONGODB_CONNECTION_TEMPLATE='fmorrison-learning.vemxm.mongodb.net/?retryWrites=true&w=majority&appName=FMORRISON-LEARNING&authSource=admin'
+MONGODB_UID='' <--- fill in your super user ID
+MONGODB_PWD='' <--- fill in your super user password
+DB_USER=<db_password>@fmorrison-learning.vemxm.mongodb.net/?retryWrites=true&w=majority&appName=FMORRISON-LEARNING
+MONGODB_DATABASE_NAME='sample_analytics' <--- This program expects you have pulled in the free MongoDB sample databases
+MONGODB_COLLECTION_NAME='customers'      <--- This program expects you have pulled in the free MongoDB sample collections
+```
 * since many MongoDB collections have an _id field, I created a parent class named `MongoDbBaseModel` to make it easier to handle working with that field,
 especially when creating new records by copying existing ones that will need a different unique id from the one they were copied from.
