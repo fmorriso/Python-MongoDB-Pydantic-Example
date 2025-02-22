@@ -150,11 +150,9 @@ def verify_can_create_new_customer():
     logger.info(f'{insert_result=}')
 
 
-def verify_can_query_by_id():
+def verify_can_query_by_unique_id():
     """
-    document = collection.find_one({'_id': ObjectId(_id_value)})
-    :return:
-    ObjectId('67b90df05a2ffff6369c798c'
+    Verify a single record can be fetched by unique id
     """
     client: MongoClient = get_mongodb_client()
     logger.info(f'{client=}')
@@ -191,7 +189,7 @@ def main():
     
     # verify_can_create_new_customer()
 
-    verify_can_query_by_id()
+    verify_can_query_by_unique_id()
 
 
 if __name__ == '__main__':

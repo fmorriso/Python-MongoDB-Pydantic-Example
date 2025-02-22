@@ -1,6 +1,6 @@
 # python-pyODMongo-example
 
-Example of using PyODMongo to access MongoDB Atlas databases and collections.
+Example of using Pymongo to access MongoDB Atlas databases and collections using Pydantic models.
 
 ## Developer notes
 * Warning: as of August 1, 2024, dependency package Cryptography issues a warning message if you install a version greater than or equal to 43.
