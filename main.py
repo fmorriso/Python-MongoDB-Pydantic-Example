@@ -1,3 +1,4 @@
+import io
 import sys
 
 #
@@ -152,7 +153,9 @@ def verify_can_query_by_unique_id(unique_id: str):
     """
     Verify a single record can be fetched by unique id
     """
-    print('verify_can_query_by_unique_id - TOP')
+    msg = f'top using {unique_id=}'
+    logger.info(msg)
+
     client: MongoClient = get_mongodb_client()
     logger.info(f'{client=}')
 
