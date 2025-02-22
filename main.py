@@ -2,6 +2,7 @@ import sys
 
 #
 import pymongo
+from pydantic import EmailStr
 from pymongo import MongoClient
 from pymongo.synchronous.database import Database
 #
@@ -137,28 +138,23 @@ def verify_can_create_new_customer():
 
     original_customer = Customer(**example_document)
 
-    copied_customer = original_customer.model_copy(deep = True, update = {"_id": ObjectId()})
+    copied_customer = original_customer.model_copy(deep = True)
     # change some fields to make a new record
-    copied_customer.username = 'frederickmorrison'
-    copied_customer.email = 'frederick.morrison@outlook.com'
-    copied_customer.name = 'Frederick Morrison'
-    copied_customer.address = '2132 Seaglass Street\nColorado Springs, CO 80921-4030'
+    copied_customer.id = ObjectId()  # generate a new unique id
+    copied_customer.username = 'daffyduck'
+    copied_customer.email = 'daffy.duck@gmail.com'
+    copied_customer.name = 'Daffy Duck'
+    copied_customer.address = '9876 W. Maple Avenue\nDuck Pond, MN 55321'
+
     msg = f'{copied_customer=}'
     logger.info(msg)
 
-    # save to MongoDB collection
-    # convert to dictionary
-    new_record = copied_customer.model_dump(by_alias = True)
-    new_record.pop("_id", None)  # prevent DuplicateKeyError
-    msg = f'{new_record=}'
-    logger.info(msg)
-
-    # now ask MongoDB to insert into the collection as a new record
-    insert_result = collection.insert_one(new_record)
+    # now ask MongoDB to insert the record into the collection
+    insert_result = collection.insert_one(copied_customer.model_dump(warnings = 'error'))
     logger.info(f'{insert_result=}')
 
 
-def verify_can_query_by_unique_id():
+def verify_can_query_by_unique_id(unique_id: str):
     """
     Verify a single record can be fetched by unique id
     """
@@ -175,7 +171,6 @@ def verify_can_query_by_unique_id():
     logger.info(f'{collection_name=}')
     collection = db[collection_name]
 
-    unique_id = '67b90df05a2ffff6369c798c'
     msg = f'{unique_id=}'
     logger.info(msg)
 
@@ -201,7 +196,9 @@ def main():
 
     # verify_can_create_new_customer()
 
-    verify_can_query_by_unique_id()
+    verify_can_query_by_unique_id('67ba172377e77ea34bc1c118') # Elmer Fudd
+    verify_can_query_by_unique_id('67ba1a6ede6fd6a19f1bb175') # Daffy Duck
+
 
 
 if __name__ == '__main__':

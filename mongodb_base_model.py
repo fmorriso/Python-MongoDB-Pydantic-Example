@@ -1,5 +1,6 @@
 from bson import ObjectId
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, Field
+
 
 class MongoDbBaseModel(BaseModel):
     """ common base model for all MongoDB models than use _id as their unique identifier.
@@ -9,4 +10,3 @@ class MongoDbBaseModel(BaseModel):
     class Config:
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
-
