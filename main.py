@@ -6,9 +6,11 @@ import pymongo
 from bson import ObjectId
 #
 from loguru import logger
+#
 from pymongo import MongoClient
+from pymongo.synchronous.collection import Collection
 from pymongo.synchronous.database import Database
-
+#
 from customer_model import Customer
 from program_settings import ProgramSettings
 
@@ -42,30 +44,8 @@ def get_mongodb_database(client: MongoClient, database_name: str) -> Database:
     return client.get_database(name = database_name)
 
 
-def get_mongodb_collection(database, collection_name: str):
+def get_mongodb_collection(database, collection_name: str) -> Collection:
     return database.get_collection(collection_name)
-
-
-def query_single_product():
-    print('Query single product - TOP')
-    logger.debug('top')
-
-    database_name = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
-    database = get_mongodb_database(database_name)
-
-    collection_name = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
-    collection = get_mongodb_collection(database, collection_name)
-
-    doc = collection.find_one()
-
-    # query: dict = {'_id': ObjectId(doc['_id'])}
-    # doc = collection.find_one(Model = Product, query = query)
-
-    msg = f'{doc=}'
-    print(msg)
-    logger.info(msg)
-
-    logger.debug('leaving')
 
 
 def verify_mongodb_database():
