@@ -1,3 +1,4 @@
+import json
 import sys
 
 #
@@ -6,10 +7,15 @@ import pymongo
 from bson import ObjectId
 #
 from loguru import logger
+from pydantic import create_model
+from pydantic.fields import FieldInfo
 #
 from pymongo import MongoClient
 from pymongo.synchronous.collection import Collection
 from pymongo.synchronous.database import Database
+
+#
+#
 #
 from customer_model import Customer
 from program_settings import ProgramSettings
@@ -161,6 +167,47 @@ def verify_can_query_by_unique_id(unique_id: str):
     print('verify_can_query_by_unique_id - BOTTOM')
 
 
+def extract_customer_schema():
+    """Determine Customer Pydantic model by interrogating MongoDB Atlas for metadata about the customers collection."""
+    msg = f'top'
+    logger.info(msg)
+    logger.debug(msg)
+
+    client: MongoClient = get_mongodb_client()
+    logger.info(f'{client=}')
+
+    database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
+    logger.info(f'{database_name=}')
+    db = get_mongodb_database(client, database_name)
+    logger.info(f'{db=}')
+
+    collection_name: str = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
+    logger.info(f'{collection_name=}')
+    collection = db[collection_name]
+
+    sample_document = collection.find_one()
+    msg = f'{sample_document=}'
+    logger.info(msg)
+
+    # Generate Pydantic model dynamically
+    model_name = 'Customer'
+    customer_model = create_model(model_name, **{key: (type(value), ...) for key, value in sample_document.items() if
+                                                 key != '_id'})
+    msg = f'{type(customer_model)=}'
+    logger.info(msg)
+
+    model_fields: dict[str, FieldInfo] = customer_model.model_fields
+    for field_name, field_info in model_fields.items():
+        field_type: str = str(field_info.annotation)
+        # print(f'{type(field_type)=}')
+        field_type = field_type.replace("<class '", "").replace('>', '').replace("'", '')
+        msg = f'{field_name=} {field_info=} {field_type=}'
+        logger.info(msg)
+    msg = json.dumps(customer_model.model_json_schema(), indent = 2)
+    logger.info(msg)
+    logger.debug(msg)
+
+
 def main():
     start_logging()
 
@@ -173,11 +220,12 @@ def main():
     logger.info(msg)
 
     # verify_customer_model()
+    extract_customer_schema()
 
     # verify_can_create_new_customer()
 
-    verify_can_query_by_unique_id('67ba172377e77ea34bc1c118')  # Elmer Fudd
-    verify_can_query_by_unique_id('67ba1a6ede6fd6a19f1bb175')  # Daffy Duck
+    # verify_can_query_by_unique_id('67ba172377e77ea34bc1c118')  # Elmer Fudd
+    # verify_can_query_by_unique_id('67ba1a6ede6fd6a19f1bb175')  # Daffy Duck
 
 
 if __name__ == '__main__':

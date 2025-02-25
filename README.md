@@ -35,6 +35,7 @@ See the requirements.txt file for more information.
 | 2025-02-18 | Upgrade to python 3.13.2 and latest packages                                       |
 | 2025-02-21 | Stop using PyODMongo and use Pydantic instead                                      | 
 | 2025-02-22 | rename remote repo and switch from GitLab to GitHub                                |
+| 2025-02-24 | add extract_customer_schema method                                                 |
 
 ## Developer Notes
 * Following information is expected to be available and accurate in a file named .env with values different than the ones shown:
