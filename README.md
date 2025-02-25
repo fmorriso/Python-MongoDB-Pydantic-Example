@@ -38,6 +38,7 @@ See the requirements.txt file for more information.
 | 2025-02-24 | add extract_customer_schema method                                                 |
 
 ## References
+* [MongoDB Atlas](https://www.mongodb.com/atlas)
 * [Pydantic](https://docs.pydantic.dev/2.10/)
 * [Pydantic dynamic model creation](https://docs.pydantic.dev/2.10/concepts/models/#dynamic-model-creation) 
 

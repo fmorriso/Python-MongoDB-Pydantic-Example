@@ -164,7 +164,7 @@ def verify_can_query_by_unique_id(unique_id: str):
     msg = f'{example_document=}'
     logger.info(msg)
 
-    print('verify_can_query_by_unique_id - BOTTOM')
+    logger.info('verify_can_query_by_unique_id - BOTTOM')
 
 
 def extract_customer_schema():
@@ -220,12 +220,12 @@ def main():
     logger.info(msg)
 
     # verify_customer_model()
-    extract_customer_schema()
+    # extract_customer_schema()
 
     # verify_can_create_new_customer()
 
-    # verify_can_query_by_unique_id('67ba172377e77ea34bc1c118')  # Elmer Fudd
-    # verify_can_query_by_unique_id('67ba1a6ede6fd6a19f1bb175')  # Daffy Duck
+    verify_can_query_by_unique_id('67ba172377e77ea34bc1c118')  # Elmer Fudd
+    verify_can_query_by_unique_id('67ba1a6ede6fd6a19f1bb175')  # Daffy Duck
 
 
 if __name__ == '__main__':
