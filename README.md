@@ -3,10 +3,13 @@
 Example of using Pymongo to access MongoDB Atlas databases and collections using Pydantic models.
 
 ## Developer notes
-* Warning: as of August 1, 2024, dependency package Cryptography issues a warning message if you install a version greater than or equal to 43.
-See the requirements.txt file for more information.
+
+* Warning: as of August 1, 2024, dependency package Cryptography issues a warning message if you install a version
+  greater than or equal to 43.
+  See the requirements.txt file for more information.
 
 ## References
+
 * [Pydantic Fields](https://docs.pydantic.dev/2.10/usage/fields)
 
 ## Tools Used
@@ -36,15 +39,20 @@ See the requirements.txt file for more information.
 | 2025-02-21 | Stop using PyODMongo and use Pydantic instead                                      | 
 | 2025-02-22 | rename remote repo and switch from GitLab to GitHub                                |
 | 2025-02-24 | add extract_customer_schema method                                                 |
+| 2025-02-25 | add static find_by_unique_id method to base model class                            |
 
 ## References
+
 * [MongoDB Atlas](https://www.mongodb.com/atlas)
 * [PyMongo](https://pymongo.readthedocs.io/en/stable/index.html)
 * [Pydantic](https://docs.pydantic.dev/2.10/)
-* [Pydantic dynamic model creation](https://docs.pydantic.dev/2.10/concepts/models/#dynamic-model-creation) 
+* [Pydantic dynamic model creation](https://docs.pydantic.dev/2.10/concepts/models/#dynamic-model-creation)
 
 ## Developer Notes
-* Following information is expected to be available and accurate in a file named .env with values different than the ones shown:
+
+* Following information is expected to be available and accurate in a file named .env with values different than the
+  ones shown:
+
 ```text
 MONGODB_CONNECTION_TEMPLATE='fmorrison-learning.vemxm.mongodb.net/?retryWrites=true&w=majority&appName=FMORRISON-LEARNING&authSource=admin'
 MONGODB_UID='' <--- fill in your super user ID
@@ -53,5 +61,8 @@ DB_USER=<db_password>@fmorrison-learning.vemxm.mongodb.net/?retryWrites=true&w=m
 MONGODB_DATABASE_NAME='sample_analytics' <--- This program expects you have pulled in the free MongoDB sample databases
 MONGODB_COLLECTION_NAME='customers'      <--- This program expects you have pulled in the free MongoDB sample collections
 ```
-* since many MongoDB collections have an _id field, I created a parent class named `MongoDbBaseModel` to make it easier to handle working with that field,
-especially when creating new records by copying existing ones that will need a different unique id from the one they were copied from.
+
+* since many MongoDB collections have an _id field, I created a parent class named `MongoDbBaseModel` to make it easier
+  to handle working with that field,
+  especially when creating new records by copying existing ones that will need a different unique id from the one they
+  were copied from.

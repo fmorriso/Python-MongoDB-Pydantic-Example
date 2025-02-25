@@ -160,9 +160,15 @@ def verify_can_query_by_unique_id(unique_id: str):
     msg = f'{unique_id=}'
     logger.info(msg)
 
-    example_document = collection.find_one({'_id': ObjectId(unique_id)})
+    # example_document = collection.find_one({'_id': ObjectId(unique_id)})
+    example_document = Customer.find_by_unique_id(collection, unique_id)
+    msg = f'{type(example_document)=}'
+    logger.debug(msg)
+
     msg = f'{example_document=}'
     logger.info(msg)
+
+    cust = Customer(**example_document)
 
     logger.info('verify_can_query_by_unique_id - BOTTOM')
 
@@ -232,7 +238,7 @@ def main():
     # verify_can_create_new_customer()
 
     verify_can_query_by_unique_id('67ba172377e77ea34bc1c118')  # Elmer Fudd
-    verify_can_query_by_unique_id('67ba1a6ede6fd6a19f1bb175')  # Daffy Duck
+    # verify_can_query_by_unique_id('67ba1a6ede6fd6a19f1bb175')  # Daffy Duck
 
 
 if __name__ == '__main__':
