@@ -35,7 +35,7 @@ def get_connection_string() -> str:
     pwd: str = ProgramSettings.get_setting('MONGODB_PWD')
 
     conn_string = f'mongodb+srv://{uid}:{pwd}@{template}'
-    logger.debug(f'{conn_string=}')
+    logger.info(f'{conn_string=}')
     return conn_string
 
 
@@ -212,12 +212,19 @@ def main():
     start_logging()
 
     msg = f'Python version: {get_python_version()}'
-    print(msg)
     logger.info(msg)
+    logger.debug(msg)
 
     msg = f'PyMongo version: {pymongo.version}'
-    print(msg)
     logger.info(msg)
+    logger.debug(msg)
+
+    client = get_mongodb_client()
+    server_info = client.server_info()
+    mongo_version = server_info['version']
+    msg = f'MongoDB Atlas version: {mongo_version}'
+    logger.info(msg)
+    logger.debug(msg)
 
     # verify_customer_model()
     # extract_customer_schema()

@@ -11,15 +11,15 @@ See the requirements.txt file for more information.
 
 ## Tools Used
 
-| Tool     |  Version |
-|:---------|---------:|
-| Python   |   3.13.2 |
-| VSCode   |   1.97.2 |
-| PyCharm  | 2024.3.3 |
-| Pydantic |   2.10.6 |
-| Pymongo  |   4.11.1 |
-| Motor    |    3.7.0 |
-| Loguru   |    0.7.3 |
+| Tool          |  Version |
+|:--------------|---------:|
+| Python        |   3.13.2 |
+| MongoDB Atlas |    8.0.4 |
+| Pydantic      |   2.10.6 |
+| Pymongo       |   4.11.1 |
+| Loguru        |    0.7.3 |
+| VSCode        |   1.97.2 |
+| PyCharm       | 2024.3.3 |
 
 ## Change History
 
@@ -39,6 +39,7 @@ See the requirements.txt file for more information.
 
 ## References
 * [MongoDB Atlas](https://www.mongodb.com/atlas)
+* [PyMongo](https://pymongo.readthedocs.io/en/stable/index.html)
 * [Pydantic](https://docs.pydantic.dev/2.10/)
 * [Pydantic dynamic model creation](https://docs.pydantic.dev/2.10/concepts/models/#dynamic-model-creation) 
 
