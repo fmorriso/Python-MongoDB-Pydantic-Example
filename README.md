@@ -37,6 +37,10 @@ See the requirements.txt file for more information.
 | 2025-02-22 | rename remote repo and switch from GitLab to GitHub                                |
 | 2025-02-24 | add extract_customer_schema method                                                 |
 
+## References
+* [Pydantic](https://docs.pydantic.dev/2.10/)
+* [Pydantic dynamic model creation](https://docs.pydantic.dev/2.10/concepts/models/#dynamic-model-creation) 
+
 ## Developer Notes
 * Following information is expected to be available and accurate in a file named .env with values different than the ones shown:
 ```text
