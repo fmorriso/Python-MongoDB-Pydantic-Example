@@ -41,6 +41,13 @@ class MongoDbBaseModel(BaseModel):
         return conn_string
 
     @staticmethod
+    def get_mongodb_client() -> MongoClient:
+        """get a client connection to my personal MongoDB Atlas cluster using my personal userid and password"""
+        connection_string: str = MongoDbBaseModel.get_connection_string()
+        connection: MongoClient = MongoClient(connection_string)
+        return connection
+
+    @staticmethod
     def get_mongodb_database(client: MongoClient, database_name: str) -> Database:
         return client.get_database(name = database_name)
 

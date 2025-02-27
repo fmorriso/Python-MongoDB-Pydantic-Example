@@ -26,11 +26,7 @@ def get_python_version() -> str:
     return f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'
 
 
-def get_mongodb_client() -> MongoClient:
-    """get a client connection to my personal MongoDB Atlas cluster using my personal userid and password"""
-    connection_string: str = MongoDbBaseModel.get_connection_string()
-    connection: MongoClient = MongoClient(connection_string)
-    return connection
+
 
 
 
@@ -41,7 +37,7 @@ def get_mongodb_collection(database, collection_name: str) -> Collection:
 
 def verify_mongodb_database():
     logger.debug('top')
-    client: MongoClient = get_mongodb_client()
+    client: MongoClient = MongoDbBaseModel.get_mongodb_client()
     logger.info(f'{client=}')
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     logger.info(f'{database_name=}')
@@ -61,7 +57,7 @@ def verify_customer_model():
     """Verify that the Customer model works for retrieval from the customers collection within the sample_analytics
     collection."""
     logger.debug('top')
-    client: MongoClient = get_mongodb_client()
+    client: MongoClient = MongoDbBaseModel.get_mongodb_client()
     logger.info(f'{client=}')
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     logger.info(f'{database_name=}')
@@ -84,7 +80,7 @@ def verify_customer_model():
 
 
 def verify_can_create_new_customer():
-    client: MongoClient = get_mongodb_client()
+    client: MongoClient = MongoDbBaseModel.get_mongodb_client()
     logger.info(f'{client=}')
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     logger.info(f'{database_name=}')
@@ -124,7 +120,7 @@ def verify_can_query_by_unique_id(unique_id: str):
     msg = f'top using {unique_id=}'
     logger.info(msg)
 
-    client: MongoClient = get_mongodb_client()
+    client: MongoClient = MongoDbBaseModel.get_mongodb_client()
     logger.info(f'{client=}')
 
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
@@ -158,7 +154,7 @@ def extract_customer_schema():
     logger.info(msg)
     logger.debug(msg)
 
-    client: MongoClient = get_mongodb_client()
+    client: MongoClient = MongoDbBaseModel.get_mongodb_client()
     logger.info(f'{client=}')
 
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
@@ -204,15 +200,15 @@ def main():
     logger.info(msg)
     logger.debug(msg)
 
-    client = get_mongodb_client()
+    client = MongoDbBaseModel.get_mongodb_client()
     server_info = client.server_info()
     mongo_version = server_info['version']
     msg = f'MongoDB Atlas version: {mongo_version}'
     logger.info(msg)
     logger.debug(msg)
 
-    # verify_customer_model()
-    # extract_customer_schema()
+    verify_customer_model()
+    extract_customer_schema()
 
     # verify_can_create_new_customer()
 
