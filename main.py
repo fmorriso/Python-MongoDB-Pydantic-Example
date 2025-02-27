@@ -33,8 +33,6 @@ def get_mongodb_client() -> MongoClient:
     return connection
 
 
-def get_mongodb_database(client: MongoClient, database_name: str) -> Database:
-    return client.get_database(name = database_name)
 
 
 def get_mongodb_collection(database, collection_name: str) -> Collection:
@@ -47,7 +45,7 @@ def verify_mongodb_database():
     logger.info(f'{client=}')
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     logger.info(f'{database_name=}')
-    db = get_mongodb_database(client, database_name)
+    db = MongoDbBaseModel.get_mongodb_database(client, database_name)
     logger.info(f'{db=}')
 
     collection_name: str = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
@@ -67,7 +65,7 @@ def verify_customer_model():
     logger.info(f'{client=}')
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     logger.info(f'{database_name=}')
-    db = get_mongodb_database(client, database_name)
+    db = MongoDbBaseModel.get_mongodb_database(client, database_name)
     logger.info(f'{db=}')
 
     collection_name: str = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
@@ -90,7 +88,7 @@ def verify_can_create_new_customer():
     logger.info(f'{client=}')
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     logger.info(f'{database_name=}')
-    db = get_mongodb_database(client, database_name)
+    db = MongoDbBaseModel.get_mongodb_database(client, database_name)
     logger.info(f'{db=}')
 
     collection_name: str = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
@@ -131,7 +129,7 @@ def verify_can_query_by_unique_id(unique_id: str):
 
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     logger.info(f'{database_name=}')
-    db = get_mongodb_database(client, database_name)
+    db = MongoDbBaseModel.get_mongodb_database(client, database_name)
     logger.info(f'{db=}')
 
     collection_name: str = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
@@ -165,7 +163,7 @@ def extract_customer_schema():
 
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     logger.info(f'{database_name=}')
-    db = get_mongodb_database(client, database_name)
+    db = MongoDbBaseModel.get_mongodb_database(client, database_name)
     logger.info(f'{db=}')
 
     collection_name: str = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')

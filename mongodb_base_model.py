@@ -2,8 +2,11 @@ import sys
 from typing import ClassVar
 from bson import ObjectId
 from pydantic import BaseModel, Field
+from pymongo import MongoClient
 from pymongo.synchronous.collection import Collection
 from loguru import logger
+from pymongo.synchronous.database import Database
+
 #
 from program_settings import ProgramSettings
 
@@ -36,6 +39,11 @@ class MongoDbBaseModel(BaseModel):
         conn_string = f'mongodb+srv://{uid}:{pwd}@{template}'
         logger.info(f'{conn_string=}')
         return conn_string
+
+    @staticmethod
+    def get_mongodb_database(client: MongoClient, database_name: str) -> Database:
+        return client.get_database(name = database_name)
+
 
     @staticmethod
     def find_by_unique_id(collection: Collection, unique_id: str) -> dict:
