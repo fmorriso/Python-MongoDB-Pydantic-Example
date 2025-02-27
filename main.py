@@ -11,11 +11,6 @@ from pydantic import create_model
 from pydantic.fields import FieldInfo
 #
 from pymongo import MongoClient
-from pymongo.synchronous.collection import Collection
-from pymongo.synchronous.database import Database
-
-#
-#
 #
 from customer_model import Customer
 from mongodb_base_model import MongoDbBaseModel
@@ -24,15 +19,6 @@ from program_settings import ProgramSettings
 
 def get_python_version() -> str:
     return f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'
-
-
-
-
-
-
-
-def get_mongodb_collection(database, collection_name: str) -> Collection:
-    return database.get_collection(collection_name)
 
 
 def verify_mongodb_database():
@@ -46,11 +32,9 @@ def verify_mongodb_database():
 
     collection_name: str = ProgramSettings.get_setting('MONGODB_COLLECTION_NAME')
 
-    products_collection = get_mongodb_collection(db, collection_name)
+    products_collection = MongoDbBaseModel.get_mongodb_collection(db, collection_name)
     logger.info(f'{products_collection=}')
     logger.debug('leaving')
-
-
 
 
 def verify_customer_model():

@@ -1,10 +1,11 @@
 import sys
 from typing import ClassVar
+
 from bson import ObjectId
+from loguru import logger
 from pydantic import BaseModel, Field
 from pymongo import MongoClient
 from pymongo.synchronous.collection import Collection
-from loguru import logger
 from pymongo.synchronous.database import Database
 
 #
@@ -16,6 +17,7 @@ class MongoDbBaseModel(BaseModel):
     This saves having to copy/paste a lot of duplicate code into each model."""
     id: ObjectId = Field(default_factory = ObjectId, alias = "_id")
     logger: ClassVar[logger]
+
 
     @staticmethod
     def start_logging():
@@ -40,6 +42,7 @@ class MongoDbBaseModel(BaseModel):
         logger.info(f'{conn_string=}')
         return conn_string
 
+
     @staticmethod
     def get_mongodb_client() -> MongoClient:
         """get a client connection to my personal MongoDB Atlas cluster using my personal userid and password"""
@@ -47,9 +50,15 @@ class MongoDbBaseModel(BaseModel):
         connection: MongoClient = MongoClient(connection_string)
         return connection
 
+
     @staticmethod
     def get_mongodb_database(client: MongoClient, database_name: str) -> Database:
         return client.get_database(name = database_name)
+
+
+    @staticmethod
+    def get_mongodb_collection(database, collection_name: str) -> Collection:
+        return database.get_collection(collection_name)
 
 
     @staticmethod
