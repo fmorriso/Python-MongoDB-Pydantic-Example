@@ -40,6 +40,7 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 | 2025-02-22 | rename remote repo and switch from GitLab to GitHub                                |
 | 2025-02-24 | add extract_customer_schema method                                                 |
 | 2025-02-25 | add static find_by_unique_id method to base model class                            |
+| 2025-02-27 | start moving MongoDb methods and logging setup to base class                       | 
 
 ## References
 

@@ -18,6 +18,7 @@ from pymongo.synchronous.database import Database
 #
 #
 from customer_model import Customer
+from mongodb_base_model import MongoDbBaseModel
 from program_settings import ProgramSettings
 
 
@@ -25,23 +26,9 @@ def get_python_version() -> str:
     return f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'
 
 
-def get_connection_string() -> str:
-    """
-    Get a connection string for MongoDB using the key/values stored in the .env file.
-    :return: a string containing the connection string.
-    """
-    template: str = ProgramSettings.get_setting('MONGODB_CONNECTION_TEMPLATE')
-    uid: str = ProgramSettings.get_setting('MONGODB_UID')
-    pwd: str = ProgramSettings.get_setting('MONGODB_PWD')
-
-    conn_string = f'mongodb+srv://{uid}:{pwd}@{template}'
-    logger.info(f'{conn_string=}')
-    return conn_string
-
-
 def get_mongodb_client() -> MongoClient:
     """get a client connection to my personal MongoDB Atlas cluster using my personal userid and password"""
-    connection_string: str = get_connection_string()
+    connection_string: str = MongoDbBaseModel.get_connection_string()
     connection: MongoClient = MongoClient(connection_string)
     return connection
 
@@ -70,12 +57,6 @@ def verify_mongodb_database():
     logger.debug('leaving')
 
 
-def start_logging():
-    log_format: str = '{time} - {name} - {level} - {function} - {message}'
-    logger.remove()
-    logger.add('formatted_log.txt', format = log_format, rotation = '10 MB', retention = '5 days')
-    # Add a handler that logs only DEBUG messages to stdout
-    logger.add(sys.stdout, level = "DEBUG", filter = lambda record: record["level"].name == "DEBUG")
 
 
 def verify_customer_model():
@@ -215,7 +196,7 @@ def extract_customer_schema():
 
 
 def main():
-    start_logging()
+    MongoDbBaseModel.start_logging()
 
     msg = f'Python version: {get_python_version()}'
     logger.info(msg)

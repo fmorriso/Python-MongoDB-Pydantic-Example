@@ -1,13 +1,41 @@
+import sys
+from typing import ClassVar
 from bson import ObjectId
 from pydantic import BaseModel, Field
 from pymongo.synchronous.collection import Collection
+from loguru import logger
+#
+from program_settings import ProgramSettings
 
 
 class MongoDbBaseModel(BaseModel):
     """ common base model for all MongoDB models than use _id as their unique identifier.
     This saves having to copy/paste a lot of duplicate code into each model."""
     id: ObjectId = Field(default_factory = ObjectId, alias = "_id")
+    logger: ClassVar[logger]
 
+    @staticmethod
+    def start_logging():
+        log_format: str = '{time} - {name} - {level} - {function} - {message}'
+        logger.remove()
+        logger.add('formatted_log.txt', format = log_format, rotation = '10 MB', retention = '5 days')
+        # Add a handler that logs only DEBUG messages to stdout
+        logger.add(sys.stdout, level = "DEBUG", filter = lambda record: record["level"].name == "DEBUG")
+
+
+    @staticmethod
+    def get_connection_string() -> str:
+        """
+        Get a connection string for MongoDB using the key/values stored in the .env file.
+        :return: a string containing the connection string.
+        """
+        template: str = ProgramSettings.get_setting('MONGODB_CONNECTION_TEMPLATE')
+        uid: str = ProgramSettings.get_setting('MONGODB_UID')
+        pwd: str = ProgramSettings.get_setting('MONGODB_PWD')
+
+        conn_string = f'mongodb+srv://{uid}:{pwd}@{template}'
+        logger.info(f'{conn_string=}')
+        return conn_string
 
     @staticmethod
     def find_by_unique_id(collection: Collection, unique_id: str) -> dict:
