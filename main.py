@@ -35,7 +35,7 @@ def verify_mongodb_database():
     log.debug(msg)
 
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
-    msg =f'Program settings database name: {database_name}'
+    msg = f'Program settings database name: {database_name}'
     log.info(msg)
     log.debug(msg)
 
@@ -56,10 +56,8 @@ def verify_mongodb_database():
     log.info(msg)
     log.debug(msg)
 
-
     assert collection_name == collection.name, ('Program settings collection name does not match connected collection '
                                                 'name')
-
 
     log.debug('leaving')
 

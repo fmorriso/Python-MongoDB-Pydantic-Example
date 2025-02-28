@@ -22,7 +22,7 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 | Pymongo       |   4.11.1 |
 | Loguru        |    0.7.3 |
 | VSCode        |   1.97.2 |
-| PyCharm       | 2024.3.3 |
+| PyCharm       | 2024.3.4 |
 
 ## Change History
 
