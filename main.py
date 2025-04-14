@@ -122,12 +122,14 @@ def verify_can_create_new_customer():
     log.info(f'{insert_result=}')
 
 
-def verify_can_query_by_unique_id(unique_id: str):
+def verify_can_query_by_unique_id():
     """
     Verify a single record can be fetched by unique id
     """
+    unique_id = ProgramSettings.get_setting('CUSTOMER_UNIQUE_ID')
     msg = f'top using {unique_id=}'
     log.info(msg)
+    log.debug(msg)
 
     client: MongoClient = MongoDbBaseModel.get_mongodb_client()
     log.info(f'{client=}')
@@ -143,8 +145,10 @@ def verify_can_query_by_unique_id(unique_id: str):
 
     msg = f'{unique_id=}'
     log.info(msg)
+    log.debug(msg)
 
-    # example_document = collection.find_one({'_id': ObjectId(unique_id)})
+
+
     example_document = Customer.find_by_unique_id(collection, unique_id)
     msg = f'{type(example_document)=}'
     log.debug(msg)
@@ -218,8 +222,8 @@ def main():
 
     # verify_can_create_new_customer()
 
-    verify_can_query_by_unique_id('67ba172377e77ea34bc1c118')  # Elmer Fudd
-    # verify_can_query_by_unique_id('67ba1a6ede6fd6a19f1bb175')  # Daffy Duck
+    verify_can_query_by_unique_id()
+
 
 
 def get_mongodb_atlas_version() -> str:

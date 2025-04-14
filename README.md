@@ -16,13 +16,13 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 
 | Tool          |  Version |
 |:--------------|---------:|
-| Python        |   3.13.2 |
-| MongoDB Atlas |    8.0.5 |
-| Pydantic      |   2.10.6 |
-| Pymongo       |   4.11.1 |
+| Python        |   3.13.3 |
+| MongoDB Atlas |    8.0.6 |
+| Pydantic      |   2.11.3 |
+| Pymongo       |   4.12.0 |
 | Loguru        |    0.7.3 |
-| VSCode        |   1.97.2 |
-| PyCharm       | 2024.3.4 |
+| VSCode        |   1.99.0 |
+| PyCharm       | 2024.3.5 |
 
 ## Change History
 
@@ -41,6 +41,7 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 | 2025-02-24 | add extract_customer_schema method                                                 |
 | 2025-02-25 | add static find_by_unique_id method to base model class                            |
 | 2025-02-27 | start moving MongoDb methods and logging setup to base class                       | 
+| 2025-04-14 | verify code runs with python 3.13.3 and related packages                           |
 
 ## References
 
