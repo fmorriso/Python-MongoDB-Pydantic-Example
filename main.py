@@ -89,10 +89,17 @@ def verify_customer_model():
 
 
 def verify_can_create_new_customer():
+    msg = 'verify_can_create_new_customer - top'
+    log.info(msg)
+    log.debug(msg)
+
     client: MongoClient = MongoDbBaseModel.get_mongodb_client()
-    log.info(f'{client=}')
+    msg = f'{client=}'
+    log.info(msg)
+
     database_name: str = ProgramSettings.get_setting('MONGODB_DATABASE_NAME')
     log.info(f'{database_name=}')
+
     db = MongoDbBaseModel.get_mongodb_database(client, database_name)
     log.info(f'{db=}')
 
@@ -116,6 +123,7 @@ def verify_can_create_new_customer():
 
     msg = f'{copied_customer=}'
     log.info(msg)
+    log.debug(msg)
 
     # now ask MongoDB to insert the record into the collection
     insert_result = collection.insert_one(copied_customer.model_dump(warnings = 'error'))
@@ -157,6 +165,9 @@ def verify_can_query_by_unique_id():
     log.info(msg)
 
     cust = Customer(**example_document)
+    msg = f'{cust=}'
+    log.info(msg)
+    log.debug(msg)
 
     log.info('verify_can_query_by_unique_id - BOTTOM')
 
@@ -201,8 +212,17 @@ def extract_customer_schema():
     log.info(msg)
     log.debug(msg)
 
+def get_mongodb_atlas_version() -> str:
+    client = MongoDbBaseModel.get_mongodb_client()
+    server_info = client.server_info()
+    mongo_version: str = server_info['version']
+    return mongo_version
 
 def main():
+    # global log
+    # if log is None:
+    #     log = MongoDbBaseModel.start_logging()
+
     msg = f'Python version: {get_python_version()}'
     log.info(msg)
     log.debug(msg)
@@ -216,21 +236,17 @@ def main():
     log.info(msg)
     log.debug(msg)
 
-    verify_mongodb_database()
-    verify_customer_model()
-    extract_customer_schema()
+    # verify_mongodb_database()
+    # verify_customer_model()
+    # extract_customer_schema()
 
-    # verify_can_create_new_customer()
+    #verify_can_create_new_customer()
 
     verify_can_query_by_unique_id()
 
 
 
-def get_mongodb_atlas_version() -> str:
-    client = MongoDbBaseModel.get_mongodb_client()
-    server_info = client.server_info()
-    mongo_version: str = server_info['version']
-    return mongo_version
+
 
 
 if __name__ == '__main__':

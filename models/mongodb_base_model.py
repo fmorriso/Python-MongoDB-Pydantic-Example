@@ -34,7 +34,7 @@ class MongoDbBaseModel(BaseModel):
         """
         log_format: str = '{time} - {name} - {level} - {function} - {message}'
         MongoDbBaseModel.__logger.remove()
-        MongoDbBaseModel.__logger.add('../formatted_log.txt', format = log_format, rotation = '10 MB',
+        MongoDbBaseModel.__logger.add('formatted_log.txt', format = log_format, rotation = '10 MB',
                                       retention = '5 days')
         # Add a handler that logs only DEBUG messages to stdout
         MongoDbBaseModel.__logger.add(sys.stdout, level = "DEBUG",
