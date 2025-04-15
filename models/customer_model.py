@@ -3,8 +3,8 @@ from typing import List, Optional, ClassVar, Dict
 
 from pydantic import EmailStr
 
-from mongodb_base_model import MongoDbBaseModel
-from tier_details import TierDetails
+from models.mongodb_base_model import MongoDbBaseModel
+from models.tier_details import TierDetails
 
 
 class Customer(MongoDbBaseModel):

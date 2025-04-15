@@ -13,8 +13,8 @@ from pymongo import MongoClient
 from pymongo.synchronous.database import Database
 
 #
-from customer_model import Customer
-from mongodb_base_model import MongoDbBaseModel
+from models.customer_model import Customer
+from models.mongodb_base_model import MongoDbBaseModel
 from program_settings import ProgramSettings
 
 log = MongoDbBaseModel.start_logging()
