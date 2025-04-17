@@ -43,6 +43,7 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 | 2025-02-27 | start moving MongoDb methods and logging setup to base class                       | 
 | 2025-04-14 | verify code runs with python 3.13.3 and related packages                           |
 | 2025-04-15 | move models into their own directory                                               |
+| 2025-04-17 | move logging into a separate LoggingUtility class                                  |
 
 ## References
 
@@ -50,6 +51,7 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 * [PyMongo](https://pymongo.readthedocs.io/en/stable/index.html)
 * [Pydantic](https://docs.pydantic.dev/2.10/)
 * [Pydantic dynamic model creation](https://docs.pydantic.dev/2.10/concepts/models/#dynamic-model-creation)
+* [Loguru](https://github.com/Delgan/loguru)
 
 ## Developer Notes
 

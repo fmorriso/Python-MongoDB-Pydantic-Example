@@ -12,12 +12,13 @@ from pydantic.fields import FieldInfo
 from pymongo import MongoClient
 from pymongo.synchronous.database import Database
 
+from logging_utility import LoggingUtility
 #
 from models.customer_model import Customer
 from models.mongodb_base_model import MongoDbBaseModel
 from program_settings import ProgramSettings
 
-log = MongoDbBaseModel.start_logging()
+log = LoggingUtility.start_logging()
 
 
 def get_python_version() -> str:

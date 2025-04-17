@@ -1,7 +1,3 @@
-import sys
-from logging import Logger
-from typing import ClassVar
-
 from bson import ObjectId
 from loguru import logger
 from pydantic import BaseModel, Field
@@ -17,30 +13,9 @@ class MongoDbBaseModel(BaseModel):
     """ common base model for all MongoDB models than use _id as their unique identifier.
     This saves having to copy/paste a lot of duplicate code into each model."""
     id: ObjectId = Field(default_factory = ObjectId, alias = "_id")
-    __logger: ClassVar[logger] = logger
 
 
-    @classmethod
-    @property
-    def logger(cls) -> Logger:
-        return cls.__logger
-
-
-    @staticmethod
-    def start_logging() -> logger:
-        """
-
-        :rtype: object
-        """
-        log_format: str = '{time} - {name} - {level} - {function} - {message}'
-        MongoDbBaseModel.__logger.remove()
-        MongoDbBaseModel.__logger.add('formatted_log.txt', format = log_format, rotation = '10 MB',
-                                      retention = '5 days')
-        # Add a handler that logs only DEBUG messages to stdout
-        MongoDbBaseModel.__logger.add(sys.stdout, level = "DEBUG",
-                                      filter = lambda record: record["level"].name == "DEBUG")
-        return MongoDbBaseModel.__logger
-
+    # __logger: ClassVar[logger] = logger
 
     @staticmethod
     def get_connection_string() -> str:
