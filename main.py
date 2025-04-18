@@ -12,13 +12,13 @@ from pydantic.fields import FieldInfo
 from pymongo import MongoClient
 from pymongo.synchronous.database import Database
 
-from logging_utility import LoggingUtility
+from logging_utility import LoggingUtility as lu
 #
 from models.customer_model import Customer
 from models.mongodb_base_model import MongoDbBaseModel
 from program_settings import ProgramSettings
 
-log = LoggingUtility.start_logging()
+log = lu.start_logging()
 
 
 def get_python_version() -> str:
@@ -123,8 +123,7 @@ def verify_can_create_new_customer():
     copied_customer.address = '9876 W. Maple Avenue\nDuck Pond, MN 55321'
 
     msg = f'{copied_customer=}'
-    log.info(msg)
-    log.debug(msg)
+    lu.log_info_and_debug(msg)
 
     # now ask MongoDB to insert the record into the collection
     insert_result = collection.insert_one(copied_customer.model_dump(warnings = 'error'))
@@ -137,8 +136,7 @@ def verify_can_query_by_unique_id():
     """
     unique_id = ProgramSettings.get_setting('CUSTOMER_UNIQUE_ID')
     msg = f'top using {unique_id=}'
-    log.info(msg)
-    log.debug(msg)
+    lu.log_info_and_debug(msg)
 
     client: MongoClient = MongoDbBaseModel.get_mongodb_client()
     log.info(f'{client=}')
@@ -153,10 +151,7 @@ def verify_can_query_by_unique_id():
     collection = db[collection_name]
 
     msg = f'{unique_id=}'
-    log.info(msg)
-    log.debug(msg)
-
-
+    lu.log_info_and_debug(msg)
 
     example_document = Customer.find_by_unique_id(collection, unique_id)
     msg = f'{type(example_document)=}'
@@ -167,8 +162,7 @@ def verify_can_query_by_unique_id():
 
     cust = Customer(**example_document)
     msg = f'{cust=}'
-    log.info(msg)
-    log.debug(msg)
+    lu.log_info_and_debug(msg)
 
     log.info('verify_can_query_by_unique_id - BOTTOM')
 
@@ -176,8 +170,7 @@ def verify_can_query_by_unique_id():
 def extract_customer_schema():
     """Determine Customer Pydantic model by interrogating MongoDB Atlas for metadata about the customers collection."""
     msg = f'top'
-    log.info(msg)
-    log.debug(msg)
+    lu.log_info_and_debug(msg)
 
     client: MongoClient = MongoDbBaseModel.get_mongodb_client()
     log.info(f'{client=}')
@@ -213,41 +206,36 @@ def extract_customer_schema():
     log.info(msg)
     log.debug(msg)
 
+
 def get_mongodb_atlas_version() -> str:
     client = MongoDbBaseModel.get_mongodb_client()
     server_info = client.server_info()
     mongo_version: str = server_info['version']
     return mongo_version
 
+
 def main():
-    # global log
-    # if log is None:
-    #     log = MongoDbBaseModel.start_logging()
+    global log
+    if log is None:
+        log = MongoDbBaseModel.start_logging()
 
     msg = f'Python version: {get_python_version()}'
-    log.info(msg)
-    log.debug(msg)
+    lu.log_info_and_debug(msg)
 
     msg = f'PyMongo version: {pymongo.version}'
-    log.info(msg)
-    log.debug(msg)
+    lu.log_info_and_debug(msg)
 
     mongo_version = get_mongodb_atlas_version()
     msg = f'MongoDB Atlas version: {mongo_version}'
-    log.info(msg)
-    log.debug(msg)
+    lu.log_info_and_debug(msg)
 
-    # verify_mongodb_database()
-    # verify_customer_model()
+    verify_mongodb_database()
+    verify_customer_model()
     # extract_customer_schema()
 
-    #verify_can_create_new_customer()
+    # verify_can_create_new_customer()
 
     verify_can_query_by_unique_id()
-
-
-
-
 
 
 if __name__ == '__main__':
