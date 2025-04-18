@@ -22,7 +22,7 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 | Pymongo       |   4.12.0 |
 | Loguru        |    0.7.3 |
 | VSCode        |   1.99.0 |
-| PyCharm       | 2024.3.5 |
+| PyCharm       | 2025.5.1 |
 
 ## Change History
 
@@ -44,6 +44,7 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 | 2025-04-14 | verify code runs with python 3.13.3 and related packages                           |
 | 2025-04-15 | move models into their own directory                                               |
 | 2025-04-17 | move logging into a separate LoggingUtility class                                  |
+| 2025-04-18 | use updated ProgramSettings class                                                  |
 
 ## References
 
