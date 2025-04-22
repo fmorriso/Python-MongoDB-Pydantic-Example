@@ -1,11 +1,12 @@
 from bson import ObjectId
-from loguru import logger
 from pydantic import BaseModel, Field
 from pymongo import MongoClient
 from pymongo.synchronous.collection import Collection
 from pymongo.synchronous.database import Database
-
 #
+from typing import ClassVar
+#
+from logging_utility import LoggingUtility#
 from program_settings import ProgramSettings
 
 
@@ -14,8 +15,7 @@ class MongoDbBaseModel(BaseModel):
     This saves having to copy/paste a lot of duplicate code into each model."""
     id: ObjectId = Field(default_factory = ObjectId, alias = "_id")
 
-
-    # __logger: ClassVar[logger] = logger
+    log: ClassVar = LoggingUtility.start_logging()
 
     @staticmethod
     def get_connection_string() -> str:
@@ -28,7 +28,7 @@ class MongoDbBaseModel(BaseModel):
         pwd: str = ProgramSettings.get_setting('MONGODB_PWD')
 
         conn_string = f'mongodb+srv://{uid}:{pwd}@{template}'
-        logger.info(f'{conn_string=}')
+
         return conn_string
 
 

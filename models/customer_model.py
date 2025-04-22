@@ -19,4 +19,4 @@ class Customer(MongoDbBaseModel):
     tier_and_details: Dict[str, TierDetails]
 
     # database: sample_analytics
-    _collection: ClassVar = 'customers'
+    _collection: ClassVar[str] = 'customers'

@@ -1,6 +1,6 @@
 import json
 import sys
-
+from importlib.metadata import version
 #
 import pymongo
 #
@@ -12,7 +12,7 @@ from pydantic.fields import FieldInfo
 from pymongo import MongoClient
 from pymongo.synchronous.database import Database
 
-from logging_utility import LoggingUtility as lu
+from logging_utility import LoggingUtility as lu, LoggingUtility
 #
 from models.customer_model import Customer
 from models.mongodb_base_model import MongoDbBaseModel
@@ -21,8 +21,13 @@ from program_settings import ProgramSettings
 log = lu.start_logging()
 
 
+
 def get_python_version() -> str:
-    return f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'
+    return f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+
+
+def get_package_version(package_name: str) -> str:
+    return version(package_name)
 
 
 def verify_mongodb_database():
@@ -217,12 +222,21 @@ def get_mongodb_atlas_version() -> str:
 def main():
     global log
     if log is None:
-        log = MongoDbBaseModel.start_logging()
+        log = LoggingUtility.start_logging()
 
     msg = f'Python version: {get_python_version()}'
     lu.log_info_and_debug(msg)
 
-    msg = f'PyMongo version: {pymongo.version}'
+    msg = f"PyMongo version: {get_package_version('pymongo')}"
+    lu.log_info_and_debug(msg)
+
+    msg = f"Pydantic version: {get_package_version('pydantic')}"
+    lu.log_info_and_debug(msg)
+
+    msg = f"python-dotenv version: {get_package_version('python-dotenv')}"
+    lu.log_info_and_debug(msg)
+
+    msg = f"loguru version: {get_package_version('loguru')}"
     lu.log_info_and_debug(msg)
 
     mongo_version = get_mongodb_atlas_version()
@@ -239,4 +253,10 @@ def main():
 
 
 if __name__ == '__main__':
+    print(f"Python version: {get_python_version()}")
+    print(f"PyMongo version: {get_package_version('pymongo')}")
+    print(f"Pydantic version: {get_package_version('pydantic')}")
+    print(f"python-dotenv version: {get_package_version('python-dotenv')}")
+    # loguru
+    print(f"loguru version: {get_package_version('loguru')}")
     main()
