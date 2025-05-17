@@ -239,6 +239,9 @@ def main():
     msg = f"loguru version: {get_package_version('loguru')}"
     lu.log_info_and_debug(msg)
 
+    msg = f"cryptography version: {get_package_version('cryptography')}"
+    lu.log_info_and_debug(msg)
+
     mongo_version = get_mongodb_atlas_version()
     msg = f'MongoDB Atlas version: {mongo_version}'
     lu.log_info_and_debug(msg)
@@ -257,6 +260,7 @@ if __name__ == '__main__':
     print(f"PyMongo version: {get_package_version('pymongo')}")
     print(f"Pydantic version: {get_package_version('pydantic')}")
     print(f"python-dotenv version: {get_package_version('python-dotenv')}")
-    # loguru
     print(f"loguru version: {get_package_version('loguru')}")
+    print(f"cryptography version: {get_package_version('cryptography')}")
+
     main()

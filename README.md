@@ -17,9 +17,10 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 | Tool          |  Version |
 |:--------------|---------:|
 | Python        |   3.13.3 |
-| MongoDB Atlas |    8.0.6 |
-| Pydantic      |   2.11.3 |
-| Pymongo       |   4.12.0 |
+| cryptography  |   44.0.3 |
+| MongoDB Atlas |    8.0.9 |
+| Pydantic      |   2.11.4 |
+| Pymongo       |   4.13.0 |
 | Loguru        |    0.7.3 |
 | VSCode        |   1.99.0 |
 | PyCharm       | 2025.5.1 |
@@ -45,6 +46,7 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 | 2025-04-15 | move models into their own directory                                               |
 | 2025-04-17 | move logging into a separate LoggingUtility class                                  |
 | 2025-04-18 | use updated ProgramSettings class                                                  |
+| 2025-05-17 | update MongoDB connection information                                              |
 
 ## References
 
