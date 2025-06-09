@@ -47,6 +47,7 @@ Example of using Pymongo to access MongoDB Atlas databases and collections using
 | 2025-04-17 | move logging into a separate LoggingUtility class                                  |
 | 2025-04-18 | use updated ProgramSettings class                                                  |
 | 2025-05-17 | update MongoDB connection information                                              |
+| 2025-06-09 | update to use revised LoggingUtility                                               |
 
 ## References
 
