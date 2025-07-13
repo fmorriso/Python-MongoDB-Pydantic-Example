@@ -1,8 +1,8 @@
 import json
 import sys
 from importlib.metadata import version
+
 #
-import pymongo
 #
 from bson import ObjectId
 #
@@ -213,24 +213,6 @@ def get_mongodb_atlas_version() -> str:
 
 
 def main():
-    msg = f'Python version: {get_python_version()}'
-    LU.log_info_and_debug(msg)
-
-    msg = f"PyMongo version: {get_package_version('pymongo')}"
-    LU.log_info_and_debug(msg)
-
-    msg = f"Pydantic version: {get_package_version('pydantic')}"
-    LU.log_info_and_debug(msg)
-
-    msg = f"python-dotenv version: {get_package_version('python-dotenv')}"
-    LU.log_info_and_debug(msg)
-
-    msg = f"loguru version: {get_package_version('loguru')}"
-    LU.log_info_and_debug(msg)
-
-    msg = f"cryptography version: {get_package_version('cryptography')}"
-    LU.log_info_and_debug(msg)
-
     mongo_version = get_mongodb_atlas_version()
     msg = f'MongoDB Atlas version: {mongo_version}'
     LU.log_info_and_debug(msg)
@@ -244,12 +226,35 @@ def main():
     verify_can_query_by_unique_id()
 
 
+def get_required_package_names() -> list[str]:
+    """
+    read the requirements.txt file and return a sorted list of package names.
+    :return: sorted list of package names
+    :rtype: list[str
+    """
+    packages: list[str] = []
+    with open('requirements.txt') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue  # skip blank lines and comments
+            package = line.split('~')[0].strip()  # works for ~=, >=, ==, etc.
+            packages.append(package)
+
+    packages.sort()
+    return packages
+
+
 if __name__ == '__main__':
     LU.log_info_and_debug(f"Python version: {get_python_version()}")
-    LU.log_info_and_debug(f"PyMongo version: {get_package_version('pymongo')}")
-    LU.log_info_and_debug(f"Pydantic version: {get_package_version('pydantic')}")
-    LU.log_info_and_debug(f"python-dotenv version: {get_package_version('python-dotenv')}")
-    LU.log_info_and_debug(f"loguru version: {get_package_version('loguru')}")
-    LU.log_info_and_debug(f"cryptography version: {get_package_version('cryptography')}")
+
+    package_names = get_required_package_names()
+
+    for pkg in package_names:
+        package_name = f'{pkg}'.ljust(16)
+        try:
+            LU.log_info_and_debug(f'{package_name}{get_package_version(pkg)}')
+        except Exception as e:
+            print(e)
 
     main()
