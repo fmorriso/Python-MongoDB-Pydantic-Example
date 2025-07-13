@@ -15,7 +15,7 @@ class MongoDbBaseModel(BaseModel):
     This saves having to copy/paste a lot of duplicate code into each model."""
     id: ObjectId = Field(default_factory = ObjectId, alias = "_id")
 
-    log: ClassVar = LoggingUtility.start_logging()
+    LoggingUtility.start_logging()
 
     @staticmethod
     def get_connection_string() -> str:
