@@ -1,6 +1,7 @@
 import json
 import sys
 from importlib.metadata import version
+
 #
 from bson import ObjectId
 #
@@ -21,13 +22,11 @@ def get_python_version() -> str:
     return f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
 
 
-def get_package_version(package_name: str) -> str:
-    return version(package_name)
+def get_package_version(name: str) -> str:
+    return version(name)
 
 
 def verify_mongodb_database():
-    LU.start_logging()
-
     msg = 'top'
     LU.log_info_and_debug(msg)
 
@@ -210,9 +209,6 @@ def get_mongodb_atlas_version() -> str:
     return mongo_version
 
 
-
-
-
 def get_required_package_names() -> list[str]:
     """
     read the requirements.txt file and return a sorted list of package names.
@@ -228,8 +224,9 @@ def get_required_package_names() -> list[str]:
             package = line.split('~')[0].strip()  # works for ~=, >=, ==, etc.
             packages.append(package)
 
-    packages.sort(key=str.lower)
+    packages.sort(key = str.lower)
     return packages
+
 
 def main():
     mongo_version = get_mongodb_atlas_version()
@@ -244,7 +241,9 @@ def main():
 
     verify_can_query_by_unique_id()
 
+
 if __name__ == '__main__':
+    LU.start_logging()
     LU.log_info_and_debug(f"Python version: {get_python_version()}")
 
     package_names = get_required_package_names()
