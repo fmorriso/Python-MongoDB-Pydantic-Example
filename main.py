@@ -1,8 +1,6 @@
 import json
 import sys
 from importlib.metadata import version
-
-#
 #
 from bson import ObjectId
 #
@@ -121,7 +119,7 @@ def verify_can_create_new_customer():
     copied_customer.address = '9876 W. Maple Avenue\nDuck Pond, MN 55321'
 
     msg = f'{copied_customer=}'
-    lu.log_info_and_debug(msg)
+    LU.log_info_and_debug(msg)
 
     # now ask MongoDB to insert the record into the collection
     insert_result = collection.insert_one(copied_customer.model_dump(warnings = 'error'))
@@ -212,18 +210,7 @@ def get_mongodb_atlas_version() -> str:
     return mongo_version
 
 
-def main():
-    mongo_version = get_mongodb_atlas_version()
-    msg = f'MongoDB Atlas version: {mongo_version}'
-    LU.log_info_and_debug(msg)
 
-    verify_mongodb_database()
-    verify_customer_model()
-    # extract_customer_schema()
-
-    # verify_can_create_new_customer()
-
-    verify_can_query_by_unique_id()
 
 
 def get_required_package_names() -> list[str]:
@@ -241,9 +228,21 @@ def get_required_package_names() -> list[str]:
             package = line.split('~')[0].strip()  # works for ~=, >=, ==, etc.
             packages.append(package)
 
-    packages.sort()
+    packages.sort(key=str.lower)
     return packages
 
+def main():
+    mongo_version = get_mongodb_atlas_version()
+    msg = f'MongoDB Atlas version: {mongo_version}'
+    LU.log_info_and_debug(msg)
+
+    verify_mongodb_database()
+    verify_customer_model()
+    # extract_customer_schema()
+
+    # verify_can_create_new_customer()
+
+    verify_can_query_by_unique_id()
 
 if __name__ == '__main__':
     LU.log_info_and_debug(f"Python version: {get_python_version()}")
